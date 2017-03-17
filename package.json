@@ -4,7 +4,7 @@
   "description": "HASSP Project",
   "main": "release/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "gulp test",
     "start": "node release/index.js",
     "prestart": "gulp build"
   },
