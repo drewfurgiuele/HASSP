@@ -2,8 +2,11 @@
 
 let gulp = require('gulp');  
 let ts = require('gulp-typescript');  
+let mocha = require('gulp-mocha');
+let runSequence = require('run-sequence');
 
 let typescriptSources = ['src/**/*.ts'];
+let unitTestSources = ['release/unit-tests/**/*.js'];
 let releaseDirectory = 'release';
 
 let tsProject = ts.createProject('./tsconfig.json'); 
@@ -19,8 +22,19 @@ gulp.task('build', [
 ]);
 
 gulp.task('watch', () => {
-    return gulp.watch(typescriptSources, ['build']);
+    return gulp.watch(typescriptSources, () => {
+        runSequence('build', 'runTests');
+    });
 })
+
+gulp.task("runTests", () => {
+    gulp.src(unitTestSources, {read: false})
+        .pipe(mocha({reporter: 'spec'}));
+});
+
+gulp.task('test', (callback) => {
+    runSequence('build', 'runTests', callback);
+});
 
 gulp.task('default', [
     'build'
