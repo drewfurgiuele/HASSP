@@ -8,19 +8,19 @@ let releaseDirectory = 'release';
 
 let tsProject = ts.createProject('./tsconfig.json'); 
 
-gulp.task('compile.TypeScript', () => {
+gulp.task('compileTypeScript', () => {
     return gulp.src(typescriptSources)
         .pipe(tsProject())
         .pipe(gulp.dest(releaseDirectory));
 });
 
-gulp.task('compile', [
-    'compile.TypeScript'
+gulp.task('build', [
+    'compileTypeScript'
 ]);
 
-gulp.task('build', [
-    'compile'
-]);
+gulp.task('watch', () => {
+    return gulp.watch(typescriptSources, ['build']);
+})
 
 gulp.task('default', [
     'build'
