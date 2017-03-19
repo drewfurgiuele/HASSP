@@ -4,6 +4,8 @@ abstract class Sensor<TDataType> {
 
     abstract getReadInternalInMilliseconds(): number;
     abstract readDataFromSensor(): TDataType;
+    abstract initializeSensor(): void;
+    abstract cleanUpSensor(): void;
 
     private _isRunning: boolean;
     private _eventEmiiter: EventEmmiter;
@@ -19,6 +21,8 @@ abstract class Sensor<TDataType> {
 
         this._isRunning = true;
 
+        this.initializeSensor();
+
         this._intervalHandle = setInterval(() => {
             let data = this.readDataFromSensor();
 
@@ -31,6 +35,8 @@ abstract class Sensor<TDataType> {
         if (!this._isRunning) { return; }
 
         clearInterval(this._intervalHandle);
+        this.cleanUpSensor();
+
         this._isRunning = false;
     }
 
