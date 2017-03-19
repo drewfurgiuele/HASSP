@@ -83,5 +83,23 @@ describe('a sensor that always returns zero', () => {
 
             expect(sensor.cleanUpCount).to.equal(1);
         });
+
+        it('only calls initialize once is started multiple times', () => {
+            sensor.start();
+            sensor.start();
+            expect(sensor.initializedCount).to.equal(1);
+        });
+
+        it('does not call cleanup when stop is called if it is not running', () => {
+            sensor.stop();
+            expect(sensor.cleanUpCount).to.equal(0);
+        });
+
+        it('only calls cleanup once if stopped multiple times', () => {
+            sensor.start();
+            sensor.stop();
+            sensor.stop();
+            expect(sensor.cleanUpCount).to.equal(1);
+        });
     });
 });
