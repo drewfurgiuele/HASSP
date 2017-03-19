@@ -1,0 +1,17 @@
+{
+    "extends": "tslint:recommended",
+    "rules": {
+        "no-console": [
+            false
+        ],
+        "quotemark": [
+            "single"
+        ],
+        "ordered-imports": [
+            false
+        ],
+        "only-arrow-functions": [
+            false
+        ]
+    }
+}

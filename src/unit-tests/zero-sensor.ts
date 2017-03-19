@@ -3,22 +3,22 @@ import * as mocha from 'mocha';
 import { expect } from 'chai';
 
 class ZeroSensor extends Sensor<number> {
-    initializedCount = 0;
-    cleanUpCount = 0;
+    public initializedCount = 0;
+    public cleanUpCount = 0;
 
-    readDataFromSensor(): number { 
+    protected readDataFromSensor(): number {
         return 0;
     }
 
-    getReadInternalInMilliseconds(): number {
+    protected getReadInternalInMilliseconds(): number {
         return 10;
     }
 
-    initializeSensor(): void {
+    protected initializeSensor(): void {
         this.initializedCount++;
     }
 
-    cleanUpSensor(): void {
+    protected cleanUpSensor(): void {
         this.cleanUpCount++;
     }
 }
@@ -48,20 +48,18 @@ describe('a sensor that always returns zero', () => {
         it('reads multiple zeros off the sensor', function(done) {
             this.timeout(200);
             this.slow(120);
-            
             let counter = 0;
 
             sensor.onSensorDataRead((data) => {
                 expect(data).to.equal(0);
-                
                 counter++;
-                if (counter == 10) {
+                if (counter === 10) {
                     sensor.stop();
                     done();
                 }
             });
 
-            sensor.start()
+            sensor.start();
         });
     });
 
@@ -84,6 +82,6 @@ describe('a sensor that always returns zero', () => {
             sensor.stop();
 
             expect(sensor.cleanUpCount).to.equal(1);
-        })
+        });
     });
 });

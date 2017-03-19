@@ -1,48 +1,47 @@
 import * as EventEmmiter from 'events';
 
 abstract class Sensor<TDataType> {
-
-    abstract getReadInternalInMilliseconds(): number;
-    abstract readDataFromSensor(): TDataType;
-    abstract initializeSensor(): void;
-    abstract cleanUpSensor(): void;
-
-    private _isRunning: boolean;
-    private _eventEmiiter: EventEmmiter;
-    private _intervalHandle: NodeJS.Timer;
+    private isRunning: boolean;
+    private eventEmiiter: EventEmmiter;
+    private intervalHandle: NodeJS.Timer;
 
     constructor() {
-        this._isRunning = false;
-        this._eventEmiiter = new EventEmmiter();
+        this.isRunning = false;
+        this.eventEmiiter = new EventEmmiter();
     }
 
-    start() {
-        if (this._isRunning) { return; }
+    public start() {
+        if (this.isRunning) { return; }
 
-        this._isRunning = true;
+        this.isRunning = true;
 
         this.initializeSensor();
 
-        this._intervalHandle = setInterval(() => {
+        this.intervalHandle = setInterval(() => {
             let data = this.readDataFromSensor();
 
-            this._eventEmiiter.emit('sensor-read', data);
+            this.eventEmiiter.emit('sensor-read', data);
 
         }, this.getReadInternalInMilliseconds());
     }
 
-    stop() {
-        if (!this._isRunning) { return; }
+    public stop() {
+        if (!this.isRunning) { return; }
 
-        clearInterval(this._intervalHandle);
+        clearInterval(this.intervalHandle);
         this.cleanUpSensor();
 
-        this._isRunning = false;
+        this.isRunning = false;
     }
 
-    onSensorDataRead(callback: (data: TDataType) => void){
-        this._eventEmiiter.on('sensor-read', callback);
+    public onSensorDataRead(callback: (data: TDataType) => void) {
+        this.eventEmiiter.on('sensor-read', callback);
     }
+
+    protected abstract getReadInternalInMilliseconds(): number;
+    protected abstract readDataFromSensor(): TDataType;
+    protected abstract initializeSensor(): void;
+    protected abstract cleanUpSensor(): void;
 }
 
 export default Sensor;

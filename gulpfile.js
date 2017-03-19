@@ -4,6 +4,7 @@ let gulp = require('gulp');
 let ts = require('gulp-typescript');  
 let mocha = require('gulp-mocha');
 let runSequence = require('run-sequence');
+let tslint = require('gulp-tslint');
 
 let typescriptSources = ['src/**/*.ts'];
 let unitTestSources = ['release/unit-tests/**/*.js'];
@@ -21,9 +22,19 @@ gulp.task('build', [
     'compileTypeScript'
 ]);
 
+gulp.task('lint', () => {
+    return gulp.src(typescriptSources)
+        .pipe(tslint({
+            formatter: 'prose'
+        }))
+        .pipe(tslint.report({
+            summarizeFailureOutput: true
+        }));
+});
+
 gulp.task('watch', () => {
     return gulp.watch(typescriptSources, () => {
-        runSequence('build', 'runTests');
+        runSequence('lint', 'build', 'runTests');
     });
 })
 
@@ -37,5 +48,5 @@ gulp.task('test', (callback) => {
 });
 
 gulp.task('default', [
-    'build'
+    'lint', 'build'
 ]);
