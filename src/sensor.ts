@@ -18,10 +18,11 @@ abstract class Sensor<TDataType> {
         this.initializeSensor();
 
         this.intervalHandle = setInterval(() => {
-            let data = this.readDataFromSensor();
-
-            this.eventEmiiter.emit('sensor-read', data);
-
+            try {
+                this.readAndReportDataFromSensor();
+            } catch (error) {
+                this.handleAndReportError(error);
+            }
         }, this.getReadInternalInMilliseconds());
     }
 
@@ -38,10 +39,27 @@ abstract class Sensor<TDataType> {
         this.eventEmiiter.on('sensor-read', callback);
     }
 
+    public onSensorError(callback: (error: Error) => void) {
+        this.eventEmiiter.on('error', callback);
+    };
+
     protected abstract getReadInternalInMilliseconds(): number;
     protected abstract readDataFromSensor(): TDataType;
     protected abstract initializeSensor(): void;
     protected abstract cleanUpSensor(): void;
+
+    private readAndReportDataFromSensor(): void {
+        let data = this.readDataFromSensor();
+        this.eventEmiiter.emit('sensor-read', data);
+    }
+
+    private handleAndReportError(error: any) {
+        if (error instanceof Error) {
+            this.eventEmiiter.emit('error', error);
+        } else {
+            this.eventEmiiter.emit('error', new Error(error));
+        }
+    }
 }
 
 export default Sensor;
