@@ -11,7 +11,7 @@ const dbConfig = {
     database: 'SpaceBallon'
 };
 
-var connectionPool = sql.ConnectionPool(dbConfig, function (err) {
+var connectionPool = new sql.ConnectionPool(dbConfig, function (err) {
     if (err) {
         console.log(err);
         throw err;
