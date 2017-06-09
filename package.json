@@ -5,8 +5,7 @@
   "main": "release/index.js",
   "scripts": {
     "test": "gulp test",
-    "start": "node release/index.js",
-    "prestart": "gulp build"
+    "start": "node index.js",
   },
   "repository": {
     "type": "git",

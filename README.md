@@ -2,7 +2,7 @@
 HASSP Project
 
 ## Setup
- * Install [Node](https://nodejs.org/en/). **NOTE**: Do not using v7.7.2! There is a nasty bug that makes the `mssql` package fail.
+ * Install [Node](https://nodejs.org/en/). (Prefer 4.2.1 LTS).
  * Run `npm install`. This will download all dependencies.
 
 ## Running Stuff
