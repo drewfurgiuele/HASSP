@@ -1,5 +1,5 @@
 var johnyFive = require('johnny-five');
-var sql = require('msssql');
+var sql = require('mssql');
 
 
 var board = new johnyFive.Board();
