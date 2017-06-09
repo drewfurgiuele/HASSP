@@ -8,7 +8,7 @@ const dbConfig = {
     user: 'sa',
     password: 'P@55w0rd',
     server: 'localhost',
-    database: 'SpaceBallon'
+    database: 'SpaceBalloon'
 };
 
 var connectionPool = new sql.ConnectionPool(dbConfig, function (err) {
@@ -17,7 +17,7 @@ var connectionPool = new sql.ConnectionPool(dbConfig, function (err) {
         throw err;
     }
 
-    pool.request.query('select * from dbo.InternalSensorMeasurements', function (err, results) {
+    connectionPool.request.query('select * from dbo.InternalSensorMeasurements', function (err, results) {
         if (err) {
             console.log(err);
             throw err;
