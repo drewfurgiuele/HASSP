@@ -18,18 +18,7 @@
     "url": "https://github.com/drewfurgiuele/HASSP/issues"
   },
   "homepage": "https://github.com/drewfurgiuele/HASSP#readme",
-  "devDependencies": {
-    "@types/chai": "^3.4.35",
-    "@types/mocha": "^2.2.40",
-    "@types/node": "^7.0.8",
-    "chai": "^3.5.0",
-    "gulp": "^3.9.1",
-    "gulp-mocha": "^4.1.0",
-    "gulp-tslint": "^7.1.0",
-    "gulp-typescript": "^3.1.6",
-    "mocha": "^3.2.0",
-    "run-sequence": "^1.2.2",
-    "tslint": "^4.5.1",
-    "typescript": "^2.2.1"
+  "dependencies": {
+    "johnny-five": "^0.11.1"
   }
 }
