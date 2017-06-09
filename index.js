@@ -31,7 +31,7 @@ var connectionPool = new sql.ConnectionPool(dbConfig, function (err) {
             console.log(this.celsius);
             console.log(this.fahrenheit);
 
-            var query = 'INSERT INTO dbo.InternalSensorMeasurement ' + 
+            var query = 'INSERT INTO dbo.InternalSensorMeasurements ' + 
                 '(Celsius, Fahrenheit, CaptureTime) ' + 
                 'VALUES ' + 
                 '(@Celsius, @Fahrenheit, @CaptureTime)';
