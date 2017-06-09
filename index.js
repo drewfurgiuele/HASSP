@@ -17,24 +17,38 @@ var connectionPool = new sql.ConnectionPool(dbConfig, function (err) {
         throw err;
     }
 
-    connectionPool.request().query('select * from dbo.InternalSensorMeasurements', function (err, results) {
-        if (err) {
-            console.log(err);
-            throw err;
-        }
+    console.log('connected to database')
 
-        console.log('got data!')
+    board.on('ready', function () {
+        var tempInternal = new johnyFive.Thermometer({
+            controller: 'LM35',
+            pin: 'A1',
+            freq: 500
+        });
+
+        // change
+        tempInternal.on('data', function () {
+            console.log(this.celsius);
+            console.log(this.fahrenheit);
+
+            var query = 'INSERT INTO dbo.InternalSensorMeasurement ' + 
+                '(Celsius, Fahrenheit, CaptureTime) ' + 
+                'VALUES ' + 
+                '(@Celsius, @Fahrenheit, @CaptureTime)';
+
+            connectionPool.request()
+                .input('Celsius', sql.Numeric(7, 2), this.celsius)
+                .input('Fahrenheit', sql.Numeric(7, 2), this.fahrenheit)
+                .input('CaptureTime', sql.DateTime2, new Date())
+                .query(, function (err, results) {
+                    if (err) {
+                        console.log(err);
+                        throw err;
+                    }
+
+                    console.log('inserted data!')
+                })
+        });
     });
 });
 
-board.on('ready', function () {
-    var tempInternal = new johnyFive.Thermometer({
-        controller: 'LM35',
-        pin: 'A1',
-        freq: 500
-    });
-
-    tempInternal.on('change', function () {
-        console.log(this.celsius);
-    });
-});
