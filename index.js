@@ -40,7 +40,7 @@ var connectionPool = new sql.ConnectionPool(dbConfig, function (err) {
                 .input('Celsius', sql.Numeric(7, 2), this.celsius)
                 .input('Fahrenheit', sql.Numeric(7, 2), this.fahrenheit)
                 .input('CaptureTime', sql.DateTime2, new Date())
-                .query(, function (err, results) {
+                .query(query, function (err, results) {
                     if (err) {
                         console.log(err);
                         throw err;
