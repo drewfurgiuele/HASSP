@@ -17,7 +17,7 @@ var connectionPool = new sql.ConnectionPool(dbConfig, function (err) {
         throw err;
     }
 
-    connectionPool.request.query('select * from dbo.InternalSensorMeasurements', function (err, results) {
+    connectionPool.request().query('select * from dbo.InternalSensorMeasurements', function (err, results) {
         if (err) {
             console.log(err);
             throw err;
