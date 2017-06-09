@@ -1,0 +1,24 @@
+{
+  "name": "hassp",
+  "version": "0.0.1",
+  "description": "HASSP Project",
+  "main": "release/index.js",
+  "scripts": {
+    "test": "gulp test",
+    "start": "node index.js",
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/drewfurgiuele/HASSP.git"
+  },
+  "author": "",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/drewfurgiuele/HASSP/issues"
+  },
+  "homepage": "https://github.com/drewfurgiuele/HASSP#readme",
+  "dependencies": {
+    "johnny-five": "^0.11.1",
+    "mssql": "^4.0.4"
+  }
+}
