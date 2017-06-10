@@ -1,21 +1,17 @@
-var johnyFive = require('johnny-five');
-var sql = require('mssql');
+const sql = require('mssql');
 
-var getConnectionPool = require('./lib/getConnectionPool');
-
-var board = new johnyFive.Board();
+const getConnectionPool = require('./lib/getConnectionPool');
+const createBoard = require('./lib/createBoard'); 
+const InternalThermometer = require('./lib/InternalThermometer');
 
 getConnectionPool(function (connectionPool) {
-    board.on('ready', function () {
-        var tempInternal = new johnyFive.Thermometer({
-            controller: 'LM35',
-            pin: 'A1',
-            freq: 50
-        });
 
-        tempInternal.on('change', function () {
-            console.log(this.celsius);
-            console.log(this.fahrenheit);
+    createBoard(function () {
+        const internalThermometer = new InternalThermometer();
+
+        internalThermometer.onDataChange(function (data) {
+            console.log(data.celsius);
+            console.log(data.fahrenheit);
 
             var query = 'INSERT INTO dbo.InternalSensorMeasurements ' + 
                 '(Celsius, Fahrenheit, CaptureTime) ' + 
@@ -23,9 +19,9 @@ getConnectionPool(function (connectionPool) {
                 '(@Celsius, @Fahrenheit, @CaptureTime)';
 
             connectionPool.request()
-                .input('Celsius', sql.Numeric(7, 2), this.celsius)
-                .input('Fahrenheit', sql.Numeric(7, 2), this.fahrenheit)
-                .input('CaptureTime', sql.DateTime2, new Date())
+                .input('Celsius', sql.Numeric(7, 2), data.celsius)
+                .input('Fahrenheit', sql.Numeric(7, 2), data.fahrenheit)
+                .input('CaptureTime', sql.DateTime2, data.captureTime)
                 .query(query, function (err, results) {
                     if (err) {
                         console.log(err);
@@ -33,8 +29,10 @@ getConnectionPool(function (connectionPool) {
                     }
 
                     console.log('inserted data!')
-                })
+                });
         });
+
+        internalThermometer.run();
     });
 });
 
