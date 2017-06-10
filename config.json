@@ -1,0 +1,11 @@
+{
+    "database": {
+        "user": "sa",
+        "password": "P@55w0rd",
+        "server": "localhost",
+        "database": "SpaceBalloon"
+    },
+    "sensor": {
+        "pollingFrequencyMilliseconds": 50
+    }
+}
