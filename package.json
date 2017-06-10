@@ -19,6 +19,7 @@
   "homepage": "https://github.com/drewfurgiuele/HASSP#readme",
   "dependencies": {
     "johnny-five": "^0.11.1",
+    "lodash": "^4.17.4",
     "mssql": "^4.0.4"
   }
 }
