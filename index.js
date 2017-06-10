@@ -1,33 +1,19 @@
 var johnyFive = require('johnny-five');
 var sql = require('mssql');
 
+var getConnectionPool = require('./ib/getConnectionPool');
 
 var board = new johnyFive.Board();
 
-const dbConfig = {
-    user: 'sa',
-    password: 'P@55w0rd',
-    server: 'localhost',
-    database: 'SpaceBalloon'
-};
-
-var connectionPool = new sql.ConnectionPool(dbConfig, function (err) {
-    if (err) {
-        console.log(err);
-        throw err;
-    }
-
-    console.log('connected to database')
-
+getConnectionPool(function (connectionPool) {
     board.on('ready', function () {
         var tempInternal = new johnyFive.Thermometer({
             controller: 'LM35',
             pin: 'A1',
-            freq: 500
+            freq: 50
         });
 
-        // change
-        tempInternal.on('data', function () {
+        tempInternal.on('change', function () {
             console.log(this.celsius);
             console.log(this.fahrenheit);
 
