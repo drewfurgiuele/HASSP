@@ -6,6 +6,6 @@
         "database": "SpaceBalloon"
     },
     "sensor": {
-        "pollingFrequencyMilliseconds": 2000
+        "pollingFrequencyMilliseconds": 100
     }
 }
