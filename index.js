@@ -11,6 +11,11 @@ const InternalThermometerDataRecorder = require('./lib/InternalThermometerDataRe
 const Accelerometer = require('./lib/Accelerometer');
 const AccelerometerDataRecorder = require('./lib/AccelerometerDataRecorder');
 
+const DigitalPressureSensor = require('./lib/DigitalPressureSensor');
+const ExternalSensorDataRecorder = require('./lib/ExternalSensorDataRecorder');
+
+const Led = require('./lib/Led');
+
 getConnectionPool(function (connectionPool) {
 
     createBoard(function () {
@@ -22,16 +27,28 @@ getConnectionPool(function (connectionPool) {
         const accelerometerDataRecorder = 
             new AccelerometerDataRecorder(connectionPool);
 
+        const digitalPressureSensor = new DigitalPressureSensor();
+        const externalSensorDataRecorder = new ExternalSensorDataRecorder(connectionPool);
+
+        const led = new Led();
+
         internalThermometer.onDataChange(function (data) {
             internalThermometerDataRecorder.recordData(data);
         });
 
         accelerometer.onDataChange(function (data) {
             accelerometerDataRecorder.recordData(data);
-        })
+        });
+
+        digitalPressureSensor.onDataChange(function (data) {
+            externalSensorDataRecorder.recordData(data);
+        });
+
+        led.blink();
 
         internalThermometer.run();
         accelerometer.run();
+        digitalPressureSensor.run();
     });
 });
 

@@ -7,5 +7,6 @@
     },
     "sensor": {
         "pollingFrequencyMilliseconds": 100
-    }
+    },
+    "debug": false
 }
