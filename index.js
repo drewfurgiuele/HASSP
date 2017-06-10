@@ -9,6 +9,7 @@ const InternalThermometer = require('./lib/InternalThermometer');
 const InternalThermometerDataRecorder = require('./lib/InternalThermometerDataRecorder');
 
 const Accelerometer = require('./lib/Accelerometer');
+const AccelerometerDataRecorder = require('./lib/AccelerometerDataRecorder');
 
 getConnectionPool(function (connectionPool) {
 
@@ -18,13 +19,15 @@ getConnectionPool(function (connectionPool) {
             new InternalThermometerDataRecorder(connectionPool);
 
         const accelerometer = new Accelerometer();
+        const accelerometerDataRecorder = 
+            new AccelerometerDataRecorder(connectionPool);
 
         internalThermometer.onDataChange(function (data) {
             internalThermometerDataRecorder.recordData(data);
         });
 
         accelerometer.onDataChange(function (data) {
-            console.log(data);
+            accelerometerDataRecorder.recordData(data);
         })
 
         internalThermometer.run();
