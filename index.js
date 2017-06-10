@@ -12,6 +12,7 @@ const Accelerometer = require('./lib/Accelerometer');
 const AccelerometerDataRecorder = require('./lib/AccelerometerDataRecorder');
 
 const DigitalPressureSensor = require('./lib/DigitalPressureSensor');
+const ExternalSensorDataRecorder = require('./lib/ExternalSensorDataRecorder');
 
 getConnectionPool(function (connectionPool) {
 
@@ -25,6 +26,7 @@ getConnectionPool(function (connectionPool) {
             new AccelerometerDataRecorder(connectionPool);
 
         const digitalPressureSensor = new DigitalPressureSensor();
+        const externalSensorDataRecorder = new ExternalSensorDataRecorder(connectionPool);
 
         internalThermometer.onDataChange(function (data) {
             internalThermometerDataRecorder.recordData(data);
@@ -35,7 +37,7 @@ getConnectionPool(function (connectionPool) {
         });
 
         digitalPressureSensor.onDataChange(function (data) {
-            console.log(data);
+            externalSensorDataRecorder.recordData(data);
         });
 
         internalThermometer.run();
