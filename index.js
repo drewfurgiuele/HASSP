@@ -28,6 +28,7 @@ getConnectionPool(function (connectionPool) {
         })
 
         internalThermometer.run();
+        accelerometer.run();
     });
 });
 
