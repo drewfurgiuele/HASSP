@@ -12,7 +12,8 @@ getConnectionPool(function (connectionPool) {
 
     createBoard(function () {
         const internalThermometer = new InternalThermometer();
-        const internalThermometerDataRecorder = new InternalThermometerDataRecorder();
+        const internalThermometerDataRecorder = 
+            new InternalThermometerDataRecorder(connectionPool);
 
         internalThermometer.onDataChange(function (data) {
             internalThermometerDataRecorder.recordData(data);
