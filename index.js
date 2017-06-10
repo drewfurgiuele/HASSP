@@ -1,3 +1,5 @@
+"use strict";
+
 const sql = require('mssql');
 
 const getConnectionPool = require('./lib/getConnectionPool');
