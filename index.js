@@ -1,7 +1,7 @@
 var johnyFive = require('johnny-five');
 var sql = require('mssql');
 
-var getConnectionPool = require('./ib/getConnectionPool');
+var getConnectionPool = require('./lib/getConnectionPool');
 
 var board = new johnyFive.Board();
 
