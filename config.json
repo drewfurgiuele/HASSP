@@ -9,5 +9,5 @@
         "pollingFrequencyMilliseconds": 50
     },
     "debug": false,
-    "initialElevation": 0
+    "initialElevationInMeters": 0
 }
