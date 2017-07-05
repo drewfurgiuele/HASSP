@@ -6,7 +6,8 @@
         "database": "SpaceBalloon"
     },
     "sensor": {
-        "pollingFrequencyMilliseconds": 100
+        "pollingFrequencyMilliseconds": 50
     },
-    "debug": false
+    "debug": false,
+    "initialElevationInMeters": 0
 }
