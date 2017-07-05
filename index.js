@@ -14,6 +14,9 @@ const AccelerometerDataRecorder = require('./lib/AccelerometerDataRecorder');
 const DigitalPressureSensor = require('./lib/DigitalPressureSensor');
 const ExternalSensorDataRecorder = require('./lib/ExternalSensorDataRecorder');
 
+const AltimeterSensor = require('./lib/AltimeterSensor');
+const AltimeterDataRecorder = require('./lib/AltimeterDataRecorder');
+
 const Led = require('./lib/Led');
 
 getConnectionPool(function (connectionPool) {
@@ -30,6 +33,9 @@ getConnectionPool(function (connectionPool) {
         const digitalPressureSensor = new DigitalPressureSensor();
         const externalSensorDataRecorder = new ExternalSensorDataRecorder(connectionPool);
 
+        const altimeterSensor = new AltimeterSensor();
+        const altimeterDataRecorder = new AltimeterDataRecorder(connectionPool);
+
         const led = new Led();
 
         internalThermometer.onDataChange(function (data) {
@@ -42,6 +48,10 @@ getConnectionPool(function (connectionPool) {
 
         digitalPressureSensor.onDataChange(function (data) {
             externalSensorDataRecorder.recordData(data);
+        });
+
+        altimeterSensor.onDataChange(function (data) {
+            altimeterDataRecorder.recordData(data)
         });
 
         led.blink();
