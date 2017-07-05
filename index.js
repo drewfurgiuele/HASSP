@@ -59,6 +59,7 @@ getConnectionPool(function (connectionPool) {
         internalThermometer.run();
         accelerometer.run();
         digitalPressureSensor.run();
+        altimeterSensor.run();
     });
 });
 
