@@ -68,9 +68,9 @@ getConnectionPool(function (connectionPool) {
 
         internalThermometer.run();
         accelerometer.run();
-        digitalPressureSensorOne.run();
+        //digitalPressureSensorOne.run();
         digitalPressureSensorTwo.run();
-        gpsSensor.run();
+        //gpsSensor.run();
     });
 });
 
