@@ -12,11 +12,11 @@ const Accelerometer = require('./lib/Accelerometer');
 const AccelerometerDataRecorder = require('./lib/AccelerometerDataRecorder');
 
 const DigitalPressureSensor280 = require('./lib/DigitalPressureSensorBmp280');
-const DigitalPressureSensor180 = require('./lib/DigitalPressureSensorBmp180');
+//const DigitalPressureSensor180 = require('./lib/DigitalPressureSensorBmp180');
 const ExternalSensorDataRecorder = require('./lib/ExternalSensorDataRecorder');
 
-const GpsSensor = require('./lib/GpsSensor');
-const GpsSensorDataRecorder = require('./lib/GpsSensorDataRecorder');
+//const GpsSensor = require('./lib/GpsSensor');
+//const GpsSensorDataRecorder = require('./lib/GpsSensorDataRecorder');
 
 const Led = require('./lib/Led');
 
@@ -48,17 +48,21 @@ getConnectionPool(function (connectionPool) {
             accelerometerDataRecorder.recordData(data);
         });
 
+/*
         digitalPressureSensorOne.onDataChange(function (data) {
             externalSensorDataRecorder.recordData(data);
         });
+        */
 
         digitalPressureSensorTwo.onDataChange(function (data) {
             externalSensorDataRecorder.recordData(data);
         });
 
+/*
         gpsSensor.onDataChange(function (data) {
             gpsSensorDataRecorder.recordData(data);
         });
+        */
 
         led.blink();
 
