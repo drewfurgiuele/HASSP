@@ -15,8 +15,8 @@ const DigitalPressureSensor280 = require('./lib/DigitalPressureSensorBmp280');
 //const DigitalPressureSensor180 = require('./lib/DigitalPressureSensorBmp180');
 const ExternalSensorDataRecorder = require('./lib/ExternalSensorDataRecorder');
 
-//const GpsSensor = require('./lib/GpsSensor');
-//const GpsSensorDataRecorder = require('./lib/GpsSensorDataRecorder');
+const GpsSensor = require('./lib/GpsSensor');
+const GpsSensorDataRecorder = require('./lib/GpsSensorDataRecorder');
 
 const Led = require('./lib/Led');
 
@@ -35,8 +35,8 @@ getConnectionPool(function (connectionPool) {
         const digitalPressureSensorTwo = new DigitalPressureSensor280();
         const externalSensorDataRecorder = new ExternalSensorDataRecorder(connectionPool);
 
-        //const gpsSensor = new GpsSensor();
-        //const gpsSensorDataRecorder = new GpsSensorDataRecorder(connectionPool);
+        const gpsSensor = new GpsSensor();
+        const gpsSensorDataRecorder = new GpsSensorDataRecorder(connectionPool);
 
         const led = new Led();
 
@@ -58,11 +58,9 @@ getConnectionPool(function (connectionPool) {
             externalSensorDataRecorder.recordData(data);
         });
 
-/*
         gpsSensor.onDataChange(function (data) {
             gpsSensorDataRecorder.recordData(data);
         });
-        */
 
         led.blink();
 
@@ -70,7 +68,7 @@ getConnectionPool(function (connectionPool) {
         accelerometer.run();
         //digitalPressureSensorOne.run();
         digitalPressureSensorTwo.run();
-        //gpsSensor.run();
+        gpsSensor.run();
     });
 });
 
