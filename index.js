@@ -56,10 +56,6 @@ getConnectionPool(function (connectionPool) {
             externalSensorDataRecorder.recordData(data);
         });
 
-        altimeterSensor.onDataChange(function (data) {
-            altimeterDataRecorder.recordData(data)
-        });
-
         gpsSensor.onDataChange(function (data) {
             gpsSensorDataRecorder.recordData(data);
         });
