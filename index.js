@@ -32,7 +32,7 @@ getConnectionPool(function (connectionPool) {
             new AccelerometerDataRecorder(connectionPool);
 
         const digitalPressureSensorOne = new DigitalPressureSensor180();
-        const digitalPressureSensorTwe = new DigitalPressureSensor280();
+        const digitalPressureSensorTwo = new DigitalPressureSensor280();
         const externalSensorDataRecorder = new ExternalSensorDataRecorder(connectionPool);
 
         const gpsSensor = new GpsSensor();
