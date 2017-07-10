@@ -2,7 +2,7 @@
 
 const getConnectionPool = require('./lib/getConnectionPool');
 
-console.log('Preparing to truncate all data');
+console.log('Preparing to pull all rows');
 
 getConnectionPool(function (connectionPool) {
     
