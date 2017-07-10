@@ -11,11 +11,12 @@ const InternalThermometerDataRecorder = require('./lib/InternalThermometerDataRe
 const Accelerometer = require('./lib/Accelerometer');
 const AccelerometerDataRecorder = require('./lib/AccelerometerDataRecorder');
 
-const DigitalPressureSensor = require('./lib/DigitalPressureSensor');
+const DigitalPressureSensor280 = require('./lib/DigitalPressureSensorBmp280');
+//const DigitalPressureSensor180 = require('./lib/DigitalPressureSensorBmp180');
 const ExternalSensorDataRecorder = require('./lib/ExternalSensorDataRecorder');
 
-const AltimeterSensor = require('./lib/AltimeterSensor');
-const AltimeterDataRecorder = require('./lib/AltimeterDataRecorder');
+const GpsSensor = require('./lib/GpsSensor');
+const GpsSensorDataRecorder = require('./lib/GpsSensorDataRecorder');
 
 const Led = require('./lib/Led');
 
@@ -30,11 +31,12 @@ getConnectionPool(function (connectionPool) {
         const accelerometerDataRecorder = 
             new AccelerometerDataRecorder(connectionPool);
 
-        const digitalPressureSensor = new DigitalPressureSensor();
+        //const digitalPressureSensorOne = new DigitalPressureSensor180();
+        const digitalPressureSensorTwo = new DigitalPressureSensor280();
         const externalSensorDataRecorder = new ExternalSensorDataRecorder(connectionPool);
 
-        const altimeterSensor = new AltimeterSensor();
-        const altimeterDataRecorder = new AltimeterDataRecorder(connectionPool);
+        const gpsSensor = new GpsSensor();
+        const gpsSensorDataRecorder = new GpsSensorDataRecorder(connectionPool);
 
         const led = new Led();
 
@@ -46,20 +48,27 @@ getConnectionPool(function (connectionPool) {
             accelerometerDataRecorder.recordData(data);
         });
 
-        digitalPressureSensor.onDataChange(function (data) {
+/*
+        digitalPressureSensorOne.onDataChange(function (data) {
+            externalSensorDataRecorder.recordData(data);
+        });
+        */
+
+        digitalPressureSensorTwo.onDataChange(function (data) {
             externalSensorDataRecorder.recordData(data);
         });
 
-        altimeterSensor.onDataChange(function (data) {
-            altimeterDataRecorder.recordData(data)
+        gpsSensor.onDataChange(function (data) {
+            gpsSensorDataRecorder.recordData(data);
         });
 
         led.blink();
 
         internalThermometer.run();
         accelerometer.run();
-        digitalPressureSensor.run();
-        altimeterSensor.run();
+        //digitalPressureSensorOne.run();
+        digitalPressureSensorTwo.run();
+        gpsSensor.run();
     });
 });
 
