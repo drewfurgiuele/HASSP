@@ -8,7 +8,7 @@ getConnectionPool(function (connectionPool) {
     
     connectionPool.request()
         .query('SELECT COUNT(*) As cnt FROM dbo.GpsMeasurements', function (err, result) {
-            if (errresult) {
+            if (err) {
                 console.log('Unable to query dbo.GpsMeasurements');
             } else {
                 console.log("GpsMeasurements: " + result.recordset[0].cnt);
