@@ -12,7 +12,7 @@ const Accelerometer = require('./lib/Accelerometer');
 const AccelerometerDataRecorder = require('./lib/AccelerometerDataRecorder');
 
 const DigitalPressureSensor280 = require('./lib/DigitalPressureSensorBmp280');
-//const DigitalPressureSensor180 = require('./lib/DigitalPressureSensorBmp180');
+const DigitalPressureSensor180 = require('./lib/DigitalPressureSensorBmp180');
 const ExternalSensorDataRecorder = require('./lib/ExternalSensorDataRecorder');
 
 const GpsSensor = require('./lib/GpsSensor');
@@ -31,7 +31,7 @@ getConnectionPool(function (connectionPool) {
         const accelerometerDataRecorder = 
             new AccelerometerDataRecorder(connectionPool);
 
-        //const digitalPressureSensorOne = new DigitalPressureSensor180();
+        const digitalPressureSensorOne = new DigitalPressureSensor180();
         const digitalPressureSensorTwo = new DigitalPressureSensor280();
         const externalSensorDataRecorder = new ExternalSensorDataRecorder(connectionPool);
 
@@ -48,11 +48,9 @@ getConnectionPool(function (connectionPool) {
             accelerometerDataRecorder.recordData(data);
         });
 
-/*
         digitalPressureSensorOne.onDataChange(function (data) {
             externalSensorDataRecorder.recordData(data);
         });
-        */
 
         digitalPressureSensorTwo.onDataChange(function (data) {
             externalSensorDataRecorder.recordData(data);
@@ -66,7 +64,7 @@ getConnectionPool(function (connectionPool) {
 
         internalThermometer.run();
         accelerometer.run();
-        //digitalPressureSensorOne.run();
+        digitalPressureSensorOne.run();
         digitalPressureSensorTwo.run();
         gpsSensor.run();
     });
