@@ -21,3 +21,7 @@ board.on("ready", function() {
 		console.log("----------------------------------------");
 	});
 });
+
+board.on('error', function (err) {
+	console.log("Error: " + err)
+});
