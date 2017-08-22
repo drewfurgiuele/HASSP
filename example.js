@@ -15,7 +15,7 @@ board.on("ready", function() {
 		controller: "BMP280"
 	});
 
-	accelerometer.on("change", function() {
+	accelerometer.on("data", function() {
 		console.log("accelerometer");
 		console.log(" x			:", this.x);
 		console.log(" y			:", this.y);
@@ -28,14 +28,14 @@ board.on("ready", function() {
 		console.log("---------------------------------------");
 	});
 
-	tempInternal.on("change", function() {
+	tempInternal.on("data", function() {
 		console.log("Internal tempature")
 		console.log(" Celsius		: ", this.celsius);
 		console.log(" Fahrenheit	: ", this.fahrenheit);
 		console.log("---------------------------------------");
 	})
 
-	multi.on("change", function() {
+	multi.on("data", function() {
 		console.log("Thermometer");
 		console.log(" Celsius		:", this.thermometer.celsius);
 		console.log(" Fahrenheit	:", this.thermometer.fahrenheit);
