@@ -6,7 +6,7 @@ board.on("ready", function() {
 		controller: "BMP280"
 	});
 
-	multi.on("change", function() {
+	multi.on("data", function() {
 		console.log("Thermometer");
 		console.log(" Celsius		:", this.thermometer.celsius);
 		console.log(" Fahrenheit	:", this.thermometer.fahrenheit);
