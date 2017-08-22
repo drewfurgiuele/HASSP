@@ -6,7 +6,7 @@ board.on("ready", function() {
 		controller: "ADXL345"
 	});
 
-	accelerometer.on("data", function() {
+	accelerometer.on("change", function() {
 		console.log("accelerometer");
 		console.log(" x			:", this.x);
 		console.log(" y			:", this.y);
